@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Contador de caracteres
     const textarea = document.querySelector('.notes-textarea');
     const counter = document.querySelector('.character-count');
     

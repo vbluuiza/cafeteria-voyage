@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Simulação: pegar dados
     const pedido = JSON.parse(localStorage.getItem('pedido')) || [];
 
     const listaItens = document.getElementById('lista-itens');

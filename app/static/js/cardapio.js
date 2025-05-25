@@ -14,13 +14,11 @@ radioGroup.forEach(item => {
 });
 
 function redirectToDetails(card) {
-  // Captura os dados do card
   const title = card.querySelector('.card-title').textContent;
   const description = card.querySelector('.card-text').textContent;
   const price = card.querySelector('.card-price').textContent;
   const imageSrc = card.querySelector('.card-img').src;
 
-  // Armazena os dados no localStorage
   localStorage.setItem('selectedCard', JSON.stringify({
     title,
     description,
@@ -28,6 +26,5 @@ function redirectToDetails(card) {
     imageSrc
   }));
 
-  // Redireciona para a página de detalhes
   window.location.href = 'item.html';
 }
