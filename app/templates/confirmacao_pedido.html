@@ -1,22 +1,23 @@
 {% extends 'layout.html' %}
 
-    {% block title %}
-        Cafeteria Voyage
-    {% endblock %}
-    {% block style %}
-    <link rel="stylesheet" href="pedido.css">
-    {% endblock %}
+{% block title %}
+    Cafeteria Voyage
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pedido.css') }}">
+{% endblock %}
 
 {% block content %}
      <nav class="navbar bg-body-tertiary py-0">
         <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
             <div class="d-flex">
-                <a class="navbar-toggler border-0 px-0" type="button" href="index.html">
+                <a class="navbar-toggler border-0 px-0" type="button" href="{{ url_for('index') }}">
                     <span class="bi bi-arrow-left"></span>
                 </a>
                 <h4 class="mb-0 ps-4">pedido 01</h4>
             </div>
-            <img src="../static/img/M_img.png" alt="">
+            <img src="{{ url_for('static', filename='img/M_img.png') }}" alt="">
         </div>
     </nav>
 
@@ -73,4 +74,3 @@
     </div>
 
 {% endblock %}
-   

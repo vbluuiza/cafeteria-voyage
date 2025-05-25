@@ -26,5 +26,5 @@ function redirectToDetails(card) {
     imageSrc
   }));
 
-  window.location.href = 'item.html';
+  window.location.href = '/pratos/item';
 }

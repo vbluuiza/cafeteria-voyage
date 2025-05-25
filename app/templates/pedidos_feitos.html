@@ -1,30 +1,30 @@
 {% extends 'layout.html' %}
 
-    {% block title %}
-        Cafeteria Voyage
-    {% endblock %}
+{% block title %}
+    Cafeteria Voyage
+{% endblock %}
 
-    {% block style %}
-        <link rel="stylesheet" href="../static/css/cardapio.css">
-    {% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cardapio.css') }}">
+{% endblock %}
 
-    {% block content %}
-        <nav class="navbar bg-body-tertiary py-0">
-        <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
-            <div class="d-flex">
-                <a class="navbar-toggler border-0 px-0" type="button" href="index.html">
-                    <span class="bi bi-arrow-left"></span>
-                </a>
-                <h4 class="mb-0 ps-4">item</h4>
-            </div>
-            <img src="../static/img/M_img.png" alt="">
+{% block content %}
+    <nav class="navbar bg-body-tertiary py-0">
+    <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
+        <div class="d-flex">
+            <a class="navbar-toggler border-0 px-0" type="button" href="index.html">
+                <span class="bi bi-arrow-left"></span>
+            </a>
+            <h4 class="mb-0 ps-4">item</h4>
         </div>
-    </nav>
+        <img src="{{ url_for('static', filename='img/M_img.png') }}" alt="">
+    </div>
+</nav>
 
-    {% endblock %}
-    
-    {% block scripts %}
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-        <script src="../static/js/scripts.js"></script>
-    {% endblock %}    
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}
