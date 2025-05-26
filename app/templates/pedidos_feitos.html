@@ -5,26 +5,56 @@
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/cardapio.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pedidos.css') }}">
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar bg-body-tertiary py-0">
-    <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
-        <div class="d-flex">
-            <a class="navbar-toggler border-0 px-0" type="button" href="index.html">
-                <span class="bi bi-arrow-left"></span>
-            </a>
-            <h4 class="mb-0 ps-4">item</h4>
+     <nav class="navbar bg-body-tertiary py-0">
+        <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
+            <div class="d-flex">
+                <a class="navbar-toggler border-0 px-0" type="button" href="/pratos">
+                    <span class="bi bi-arrow-left"></span>
+                </a>
+                <h4 class="mb-0 ps-4">Pedidos</h4>
+            </div>
+            <img src="../static/img/M_img.png" alt="">
         </div>
-        <img src="{{ url_for('static', filename='img/M_img.png') }}" alt="">
-    </div>
-</nav>
+    </nav>
 
+    <div class="mt-3 px-3">
+        <h6 class="mb-3">Pedidos feitos<h6>
+                <div class="cards-area-template">
+                    <div class="card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
+                        <div class="d-flex justify-content-between align-items-center px-2 py-2">
+                            <i class="bi bi-clipboard fs-1"></i>
+                            <div class="align-items-center">
+                                <h5 class="card-title mb-1">Pedido x</h5>
+                                <p class="text-muted mb-0"> Mesa x</p>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-light" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    ⋮
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="editar_pedido.html">Editar Pedido</a></li>
+                                    <li><a class="dropdown-item" href="#">Cancelar Pedido</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-top px-2 py-3">
+                            <p class="mb-0">total:</p>
+                            <p class=" mb-0 text-success">R$12,00</p>
+                        </div>
+                    </div>
+                </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+    <script src="../static/js/scripts.js"></script>
 {% endblock %}

@@ -1,0 +1,44 @@
+.cards-area-template{
+    display: grid;
+    align-items: center;
+  grid-template-areas: 
+  "card card";
+  column-gap: 12px;
+  padding: 8px;
+}
+
+
+.custom-card{
+  display: grid;
+  align-items: center;
+  grid-template-areas: 
+  "card-logo card-content";
+  column-gap: 12px;
+  padding: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  grid-template-columns: 125px 188px;
+  grid-template-rows: 100px;
+}
+
+.card-logo{
+  grid-area: card-img;
+  width: 125px;
+  height: 100px;
+}
+
+.card-text{
+  font-size: 14px;
+  color: var(--text-color-2);                
+  height: 40px;          
+  overflow: hidden;            
+  text-overflow: ellipsis;
+}
+
+.card-price{
+  font-size: 16px;
+  color: var(--price-color);
+}
+
+.section-card-container {
+  margin: 120px 0;
+}

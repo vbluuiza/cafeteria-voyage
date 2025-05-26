@@ -26,5 +26,5 @@ function redirectToDetails(card) {
     imageSrc
   }));
 
-  window.location.href = '/pratos/item';
+  window.location.href = '/cardapio/item';
 }
