@@ -9,5 +9,5 @@ class ConfigDev:
 
     SECRET_KEY = os.getenv("SECRET_KEY")
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///cafeteria.db"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///instance/cafeteria.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False

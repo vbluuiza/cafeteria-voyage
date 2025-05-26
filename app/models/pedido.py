@@ -8,5 +8,5 @@ class Pedido(db.Model):
     observacao = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(100), nullable=False)
   
-    mesa = db.relationship('Mesa', backref='pedidos')
+    mesa = db.relationship('Mesa', back_populates='pedidos')
     itens = db.relationship('ItemPedido', backref='pedido', cascade="all, delete")

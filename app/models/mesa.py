@@ -5,5 +5,5 @@ class Mesa(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(100), nullable=False)
   
-    pedidos = db.relationship('Pedido', backref='mesa', lazy=True)
+    pedidos = db.relationship('Pedido', back_populates='mesa', lazy=True)
   

@@ -1,5 +1,4 @@
 from main import db
-
 class Cardapio(db.Model):
     __tablename__ = 'cardapio'
     id = db.Column(db.Integer, primary_key=True)
