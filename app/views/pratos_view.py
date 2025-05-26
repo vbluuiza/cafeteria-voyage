@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template
+from app.models.cardapio import Cardapio
+
 pratos_bp = Blueprint('pratos', __name__, url_prefix='/pratos')
 
 @pratos_bp.route('/')

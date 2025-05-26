@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    Cardápio
+    Cafeteria Voyage
 {% endblock %}
 
 {% block style %}
@@ -54,127 +54,81 @@
             </ul>
         </div>
     </nav>
+
     <div class="section-card-container">
         <div class="px-3 mt-3">
-            <h6 id="cafes_especiais" class="mb-3">Cafés especiais</h6>
-            <div>
+
+        <h6 id="cafes" class="mb-3 mt-5">Cafés Especiais</h6>
+            {% for item in cardapio if item.subcategoria == 'Cafés Especiais' %}
                 <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/affogato.jpg') }}" alt="">
+                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
                     <div class="card-content">
-                        <h5 class="card-title mb-2">Affogato</h5>
-                        <p class="card-text mb-2">Café expresso quente, Sorvete de Baunilha ou Doce de Leite</p>
-                        <p class="card-price mb-0">R$12,00</p>
+                        <h5 class="card-title mb-2">{{ item.nome }}</h5>
+                        <p class="card-text mb-2">{{ item.descricao }}</p>
+                        <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
                     </div>
                 </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/mocha.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Mocha</h5>
-                        <p class="card-text mb-2">Café expresso, Leite e Chocolate em pó</p>
-                        <p class="card-price mb-0">R$10,00</p>
-                    </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/cafe_gelado.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Café Gelado</h5>
-                        <p class="card-text mb-2">Café expresso, Gelo, Chantilly</p>
-                        <p class="card-price mb-0">R$8,99</p>
-                    </div>
-                </div>
-            </div>
+            {% else %}
+                <p>Nenhum item encontrado nessa subcategoria.</p>
+            {% endfor %}
+
+
             <h6 id="cafes" class="mb-3 mt-5">Cafés</h6>
-            <div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/expresso.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Expresso</h5>
-                        <p class="card-text mb-2">Café especial moído fino</p>
-                        <p class="card-price mb-0">R$ 6,00</p>
+                {% for item in cardapio if item.subcategoria == 'Cafés' %}
+                    <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
+                        <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
+                        <div class="card-content">
+                            <h5 class="card-title mb-2">{{ item.nome }}</h5>
+                            <p class="card-text mb-2">{{ item.descricao }}</p>
+                            <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/cappuccino.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Cappuccino</h5>
-                        <p class="card-text mb-2">Café expresso, Leite, Espuma de leite cremosa</p>
-                        <p class="card-price mb-0">R$8,00</p>
-                    </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/cafe_com_leite.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Café com Leite</h5>
-                        <p class="card-text mb-2">Café expresso, Leite</p>
-                        <p class="card-price mb-0">R$7,50</p>
-                    </div>
-                </div>
-            </div>
+                {% else %}
+                    <p>Nenhum item encontrado nessa subcategoria.</p>
+                {% endfor %}
+
             <h6 id="outras_bebidas" class="mb-3 mt-5">Outras Bebidas</h6>
-            <div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/agua_mineral.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Água Natural</h5>
-                        <p class="card-text mb-2"></p>
-                        <p class="card-price mb-0">R$3,00</p>
+                {% for item in cardapio if item.subcategoria == 'Outras Bebidas' %}
+                    <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
+                        <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
+                        <div class="card-content">
+                            <h5 class="card-title mb-2">{{ item.nome }}</h5>
+                            <p class="card-text mb-2">{{ item.descricao }}</p>
+                            <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/suco_de_laranja.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Suco de Laranja</h5>
-                        <p class="card-text mb-2">Colocar a descricao</p>
-                        <p class="card-price mb-0">R$7,00</p>
-                    </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/chocolate_quente.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Chocolate Quente</h5>
-                        <p class="card-text mb-2">Colocar a descricao</p>
-                        <p class="card-price mb-0">R$8,00</p>
-                    </div>
-                </div>
-            </div>
+                {% else %}
+                    <p>Nenhum item encontrado nessa subcategoria.</p>
+                {% endfor %}
+
             <h6 id="sanduiches" class="mb-3 mt-5">Sanduíches</h6>
-            <div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/sanduiche_de_frango.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Sanduiche de frango</h5>
-                        <p class="card-text mb-2">Pão de forma, frango e queijo</p>
-                        <p class="card-price mb-0">R$11,50</p>
+                {% for item in cardapio if item.subcategoria == 'Sanduíches' %}
+                    <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
+                        <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
+                        <div class="card-content">
+                            <h5 class="card-title mb-2">{{ item.nome }}</h5>
+                            <p class="card-text mb-2">{{ item.descricao }}</p>
+                            <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/misto_quente.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Misto Quente</h5>
-                        <p class="card-text mb-2">Pão de forma, Presunto, Queijo Muçarela</p>
-                        <p class="card-price mb-0">R$9,00</p>
-                    </div>
-                </div>
-            </div>
+                {% else %}
+                    <p>Nenhum item encontrado nessa subcategoria.</p>
+                {% endfor %}
+
             <h6 id="sobremesas" class="mb-3 mt-5">Sobremesas</h6>
-            <div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/petit_gateau.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Petit Gâteau</h5>
-                        <p class="card-text mb-2">Petit Gateau de chocolate e Sorvete de baunilha</p>
-                        <p class="card-price mb-0">R$11,00</p>
+                {% for item in cardapio if item.subcategoria == 'Sobremesas' %}
+                    <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
+                        <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
+                        <div class="card-content">
+                            <h5 class="card-title mb-2">{{ item.nome }}</h5>
+                            <p class="card-text mb-2">{{ item.descricao }}</p>
+                            <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="custom-card rounded-2 bg-light mb-2" onclick="redirectToDetails(this)">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/brownie.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">Brownie</h5>
-                        <p class="card-text mb-2">Brownie de chocolate com sorvete de creme</p>
-                        <p class="card-price mb-0">R$7,00</p>
-                    </div>
-                </div>
-            </div>
+                {% else %}
+                    <p>Nenhum item encontrado nessa subcategoria.</p>
+                {% endfor %}
+
         </div>
     </div>
 {% endblock %}
@@ -183,3 +137,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/cardapio.js') }}"></script>
 {% endblock %}
+
+                    
