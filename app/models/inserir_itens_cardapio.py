@@ -17,6 +17,7 @@ for item in data:
         descricao=item['descricao'],
         ingredientes=item['ingredientes'],
         preco=item['preco'],
+        opcional=item['opcional'],
         subcategoria=item['subcategoria'],
         categoria=item['categoria']
     ))

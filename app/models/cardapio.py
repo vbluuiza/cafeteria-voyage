@@ -6,6 +6,7 @@ class Cardapio(db.Model):
     descricao = db.Column(db.String(300), nullable=True)
     ingredientes = db.Column(db.String(300), nullable=False)
     preco = db.Column(db.Float, nullable=False)
+    opcional = db.Column(db.String(100), nullable=True)
     subcategoria = db.Column(db.String(100), nullable=False)
     categoria = db.Column(db.String(100), nullable=False)
 

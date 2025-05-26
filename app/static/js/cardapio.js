@@ -18,12 +18,14 @@ function redirectToDetails(card) {
   const description = card.querySelector('.card-text').textContent;
   const price = card.querySelector('.card-price').textContent;
   const imageSrc = card.querySelector('.card-img').src;
+  const productId = card.querySelector('#item_id').textContent;
 
   localStorage.setItem('selectedCard', JSON.stringify({
     title,
     description,
     price,
-    imageSrc
+    imageSrc,
+    productId
   }));
 
   window.location.href = '/cardapio/item';

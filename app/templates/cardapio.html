@@ -66,6 +66,7 @@
                         <h5 class="card-title mb-2">{{ item.nome }}</h5>
                         <p class="card-text mb-2">{{ item.descricao }}</p>
                         <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                        <p class="d-none" id="item_id">{{ item.id }}</p>
                     </div>
                 </div>
             {% else %}
@@ -81,6 +82,7 @@
                             <h5 class="card-title mb-2">{{ item.nome }}</h5>
                             <p class="card-text mb-2">{{ item.descricao }}</p>
                             <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                            <p class="d-none" id="item_id">{{ item.id }}</p>
                         </div>
                     </div>
                 {% else %}
@@ -95,6 +97,7 @@
                             <h5 class="card-title mb-2">{{ item.nome }}</h5>
                             <p class="card-text mb-2">{{ item.descricao }}</p>
                             <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                            <p class="d-none" id="item_id">{{ item.id }}</p>
                         </div>
                     </div>
                 {% else %}
@@ -109,6 +112,7 @@
                             <h5 class="card-title mb-2">{{ item.nome }}</h5>
                             <p class="card-text mb-2">{{ item.descricao }}</p>
                             <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                            <p class="d-none" id="item_id">{{ item.id }}</p>
                         </div>
                     </div>
                 {% else %}
@@ -123,6 +127,7 @@
                             <h5 class="card-title mb-2">{{ item.nome }}</h5>
                             <p class="card-text mb-2">{{ item.descricao }}</p>
                             <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                            <p class="d-none" id="item_id">{{ item.id }}</p>
                         </div>
                     </div>
                 {% else %}
