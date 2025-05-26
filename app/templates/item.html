@@ -17,19 +17,19 @@
                 <a class="navbar-toggler border-0 px-0" type="button" href="/cardapio">
                     <span class="bi bi-arrow-left"></span>
                 </a>
-                <h4 class="mb-0 ps-4">item</h4>
+                <h4 class="mb-0 ps-4">{{ item.nome }}</h4>
             </div>
             <img src="{{ url_for('static', filename='img/M_img.png') }}" alt="">
         </div>
     </nav>
 
     <div class="product-header">
-        <img id="detail-image" src="" class="produto-image" alt="Affogato">
+        <img id="detail-image" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" class="produto-image" alt="{{ item.nome }}">
     </div>
 
     <div class="px-3">
         <h3 class="mt-2 fw-bold fs-2" id="detail-title"></h3>
-        <p class="ssd" id="item_id"></p>
+        <p class="d-none" id="item_id">{{ item.id }}</p>
         <p id="detail-description" class="text-muted"></p>
         <p class="fw-medium fs-5 text-success" id="detail-price"></p>
     </div>
@@ -43,8 +43,22 @@
     </div>
 
     <div class="px-3" id="options-container">
-      
-
+        {% if item.opcional %}
+            <form id="opcionais-form" class="mt-3">
+                <p class="fw-medium mb-2">Escolha uma opção:</p>
+                {% for opcao in item.opcional.replace(' ou/e ', ',').split(',') %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opcional" id="opcional_{{ loop.index }}" value="{{ opcao }}">
+                        <label class="form-check-label" for="opcional_{{ loop.index }}">
+                            {{ opcao }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </form>
+        {% else %}
+            <p class="mt-3 text-muted">Sem opcionais disponíveis.</p>
+        {% endif %}
+    </div>
         
     </div>
     <div class="px-3 observacao_section">
@@ -60,7 +74,7 @@
             Adicionar
         </a>
         <div class="w-50 d-flex align-items-center justify-content-center">
-            <h4 class="pb-0 fw-medium fs-5 detail-price-static">R$ 19,20</h4>
+             <h4 class="pb-0 fw-medium fs-5 detail-price-static">R$ {{ "%.2f"|format(item.preco) }}</h4>
         </div>
     </div>
 {% endblock %}

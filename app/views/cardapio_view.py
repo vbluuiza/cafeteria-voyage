@@ -8,9 +8,10 @@ def ver_pratos():
     cardapio = Cardapio.query.all()
     return render_template('cardapio.html', cardapio=cardapio)
 
-@pratos_bp.route('/item')
-def ver_item_pedido():
-    return render_template('item.html')
+@pratos_bp.route('/item/<int:id>')
+def ver_item_pedido(id):
+    item = Cardapio.query.get_or_404(id)
+    return render_template('item.html', item=item)
 
 @pratos_bp.route('/fazer_pedido')
 def ver_pedidos():

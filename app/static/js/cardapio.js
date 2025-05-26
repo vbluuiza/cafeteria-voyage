@@ -1,32 +1,23 @@
 const radioGroup = [
-  document.getElementById("radioItem1"),
-  document.getElementById("radioItem2"),
-  document.getElementById("radioItem3"),
-  document.getElementById("radioItem4"),
-  document.getElementById("radioItem5")
-].filter(Boolean); // Filtra para remover possíveis elementos null/undefined
-
-radioGroup.forEach(item => {
-  item.addEventListener('click', () => {
-    radioGroup.forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-  });
+    document.getElementById("radioItem1"),
+    document.getElementById("radioItem2"),
+    document.getElementById("radioItem3"),
+    document.getElementById("radioItem4"),
+    document.getElementById("radioItem5"),
+].filter(Boolean); 
+radioGroup.forEach((item) => {
+    item.addEventListener("click", () => {
+        radioGroup.forEach((i) => i.classList.remove("active"));
+        item.classList.add("active");
+    });
 });
 
 function redirectToDetails(card) {
-  const title = card.querySelector('.card-title').textContent;
-  const description = card.querySelector('.card-text').textContent;
-  const price = card.querySelector('.card-price').textContent;
-  const imageSrc = card.querySelector('.card-img').src;
-  const productId = card.querySelector('#item_id').textContent;
+    const productId = card.querySelector("#item_id").textContent.trim();
 
-  localStorage.setItem('selectedCard', JSON.stringify({
-    title,
-    description,
-    price,
-    imageSrc,
-    productId
-  }));
-
-  window.location.href = '/cardapio/item';
+    if (productId) {
+        window.location.href = `/cardapio/item/${productId}`;
+    } else {
+        console.error("ID do item não encontrado.");
+    }
 }

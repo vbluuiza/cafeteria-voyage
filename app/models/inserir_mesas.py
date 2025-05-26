@@ -1,9 +1,9 @@
 import json
-from app.models.cardapio import Cardapio
+from app.models.mesa import Mesa
 from main import db
 from run import app
 
-path = 'app/dados_json/cardapio_refatorado.json'
+path = 'app/dados_json/mesas_refatorada.json'
 
 with open(path, encoding='utf-8') as file:
     dados = json.load(file)
@@ -11,15 +11,9 @@ with open(path, encoding='utf-8') as file:
 itens = []
 
 for item in dados:
-    itens.append(Cardapio(
+    itens.append(Mesa(
         id=item['id'],
-        nome=item['nome'],
-        descricao=item['descricao'],
-        ingredientes=item['ingredientes'],
-        preco=item['preco'],
-        opcional=item['opcional'],
-        subcategoria=item['subcategoria'],
-        categoria=item['categoria']
+        status=item['status'],
     ))
 
 with app.app_context():
