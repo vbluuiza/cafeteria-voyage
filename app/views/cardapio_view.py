@@ -11,3 +11,7 @@ def ver_pratos():
 @pratos_bp.route('/item')
 def ver_item_pedido():
     return render_template('item.html')
+
+@pratos_bp.route('/fazer_pedido')
+def ver_pedidos():
+    return render_template('confirmar_pedido.html')
