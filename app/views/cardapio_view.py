@@ -3,7 +3,7 @@ from app.models.cardapio import Cardapio
 
 pratos_bp = Blueprint('pratos', __name__, url_prefix='/cardapio')
 
-@pratos_bp.route('/')
+@pratos_bp.route('/', methods=["GET", "POST"])
 def ver_pratos():
     cardapio = Cardapio.query.all()
     return render_template('cardapio.html', cardapio=cardapio)

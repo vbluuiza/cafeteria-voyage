@@ -9,68 +9,78 @@
 {% endblock %}
 
 {% block content %}
-     <nav class="navbar bg-body-tertiary py-0">
+    <nav class="navbar bg-body-tertiary py-0">
         <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
             <div class="d-flex">
                 <a class="navbar-toggler border-0 px-0" type="button" href="/cardapio">
                     <span class="bi bi-arrow-left"></span>
                 </a>
-                <h4 class="mb-0 ps-4">pedido 01</h4>
+                <h4 class="mb-0 ps-4">Pedido #{{ pedido.id }}</h4>
             </div>
             <img src="{{ url_for('static', filename='img/M_img.png') }}" alt="">
         </div>
     </nav>
 
-    <div class="px-3">
-        <div class="d-flex justify-content-between">
-            <div>
-                <p class="mb-0 fw-medium">Mesa para o pedido:</p>
-                <small class="text-muted">Escolha 1 mesa</small>
+    <form method="POST" action="{{ url_for('pedido.confirmar_pedido', pedido_id=pedido.id) }}">
+        <div class="px-3 mt-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="mb-0 fw-medium">Mesa para o pedido:</p>
+                    <small class="text-muted">Escolha 1 mesa</small>
+                </div>
+                <select class="form-select mt-1 w-auto" name="mesa_id" required style="font-weight: 500;">
+                    <option value="" disabled selected>Selecione</option>
+                    {% for mesa in mesas %}
+                        <option value="{{ mesa.id }}" {% if pedido.mesa_id == mesa.id %}selected{% endif %}>
+                            Mesa {{ mesa.id }} - {{ mesa.status }}
+                        </option>
+                    {% endfor %}
+                </select>
             </div>
-            <select class="form-select mt-1 w-auto" style="font-weight: 500;">
-                <option selected>Mesa 01</option>
-                <option>Mesa 02</option>
-            </select>
-        </div>
 
         <hr>
 
         <div>
             <h5 class="fw-semibold">Itens do pedido</h5>
-            <div id="itens-container">
-                <div class="d-flex justify-content-between mt-3 align-items-center">
-                    <div class="w-75">
-                        <p class="mb-1 fw-semibold">Affogato</p>
-                        <p class="mb-1 text-muted small">Café expresso quente, Sorvete de Baunilha ou Doce de Leite</p>
-                        <p class="text-success fw-semibold">R$ 15,99</p>
-                    </div>
-                    <i class="bi bi-trash text-danger fs-5"></i>
+            {% for item in pedido.itens %}
+            <div class="d-flex justify-content-between mt-3 align-items-center">
+                <div class="w-75">
+                    <p class="mb-1 fw-semibold">{{ item.cardapio.nome }}</p>
+                    <p class="mb-1 text-muted small">{{ item.cardapio.descricao }}</p>
+                    <p class="text-success fw-semibold">R$ {{ '%.2f'|format(item.preco_unitario * item.quantidade|int) }}</p>
+                    <p class="mb-1 text-muted small">{{ item.observacao }}</p>
                 </div>
             </div>
-            <p class="text-center text-danger fw-medium mt-4">Adicionar mais itens</p>
-        </div>
+            {% endfor %}
+            
+            <div class="text-center mt-4">
+                <a href="/cardapio" class="btn btn-outline-danger fw-medium">Adicionar mais itens</a>
+            </div>
 
+        </div>
 
         <div class="mt-5">
             <h5 class="fw-semibold">Resumo de valores</h5>
             <div class="d-flex justify-content-between mt-4">
                 <span class="text-muted">Subtotal:</span>
-                <span class="text-muted">R$ 18.99</span>
+                <span class="text-muted">R$ {{ '%.2f'|format(pedido.preco_total) }}</span>
             </div>
             <div class="d-flex justify-content-between">
                 <span class="fw-medium">Total:</span>
-                <span class="fw-medium">R$ 20.99</span>
+                <span class="fw-medium">R$ {{ '%.2f'|format(pedido.preco_total) }}</span>
             </div>
         </div>
-
     </div>
 
-    <div class="d-flex fixed-bottom pt-3 pb-2 px-3 ali">
-        <div class="fw-semibold w-50">
-            <p class="mb-0">Total</p>
-            <p class="mb-0">R$ 49,90 / 1 item</p>
+        <div class="d-flex fixed-bottom pt-3 pb-2 px-3 ali bg-light">
+            <div class="fw-semibold w-50">
+                <p class="mb-0">Total</p>
+                <p class="mb-0">
+                    R$ {{ '%.2f'|format(pedido.preco_total|float) }} /
+                    {{ pedido.itens|length }} item{% if pedido.itens|length > 1 %}s{% endif %}
+                </p>
+            </div>
+            <button type="submit" class="btn btn-primary fw-semibold w-50">Confirmar Pedido</button>
         </div>
-        <button class="btn btn-primary fw-semibold w-50">Confirmar Pedido</button>
-    </div>
-
+    </form>
 {% endblock %}
