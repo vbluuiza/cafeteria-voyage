@@ -1,15 +1,54 @@
 .divider:after,
 .divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
 }
+
+bg-color {
+    background-color: #503e2e;
+    padding-block: 0.75rem;
+    padding-bottom: 2rem;
+    border: none;
+}
+.btn-color {
+    padding-block: 0.75rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #503e2e;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-color:hover {
+    background-color: #694e37;
+    transform: scale(1.01);
+    opacity: 0.95;
+}   
+
+.btn-text {
+    color: #eee;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.login-img {
+    max-width: 100%;
+    height: auto;
+    }
+
 .h-custom {
-height: calc(100% - 73px);
+    height: calc(100% - 73px);
 }
 @media (max-width: 450px) {
-.h-custom {
-height: 100%;
+    .h-custom {
+    height: 100%;
+    }
 }
+
+@media (max-width: 768px) {
+.login-img {
+    max-height: 180px;
+    margin-bottom: 20px;
+    }
 }
