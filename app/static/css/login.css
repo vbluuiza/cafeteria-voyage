@@ -52,3 +52,8 @@ bg-color {
     margin-bottom: 20px;
     }
 }
+
+
+.button-custom{
+    background-color: var(--theme-color);
+}

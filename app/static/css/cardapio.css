@@ -25,6 +25,10 @@ li .nav-link {
   border-bottom: 2px solid var(--theme-color);
 }
 
+.nav-link:hover {
+  color: var(--theme-color);
+}
+
 .custom-card{
   display: grid;
   align-items: center;
