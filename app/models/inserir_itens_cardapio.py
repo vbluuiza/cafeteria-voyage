@@ -29,4 +29,5 @@ with app.app_context():
         db.session.commit()
         print("Itens inseridos com sucesso!")
     except Exception as e:
-        print(f'Erro ao inserir: {e}')
+        print("Erro ao inserir:", e)
+

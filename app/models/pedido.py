@@ -8,4 +8,4 @@ class Pedido(db.Model):
     status = db.Column(db.String(100), nullable=False)
   
     mesa = db.relationship('Mesa', back_populates='pedidos')
-    itens = db.relationship('ItemPedido', backref='pedido', cascade="all, delete")
+    itens = db.relationship('ItemPedido', backref='pedido', cascade='all, delete-orphan', passive_deletes=True  )
