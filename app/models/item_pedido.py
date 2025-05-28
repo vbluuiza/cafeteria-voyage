@@ -4,7 +4,7 @@ class ItemPedido(db.Model):
     __tablename__ = 'item_pedido'
     id = db.Column(db.Integer, primary_key=True)
 
-    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id'), nullable=False)
+    pedido_id = db.Column(db.Integer, db.ForeignKey('pedido.id', ondelete='CASCADE'), nullable=False)
     cardapio_id = db.Column(db.Integer, db.ForeignKey('cardapio.id'), nullable=True)
 
     quantidade = db.Column(db.Integer, nullable=False)
