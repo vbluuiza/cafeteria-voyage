@@ -28,3 +28,4 @@ Arquivos do sistema (Windows/macOS),
 .DS_Store
 Thumbs.db
 instance/cafeteria.db
+instance/

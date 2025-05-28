@@ -17,7 +17,7 @@ for item in dados:
         descricao=item['descricao'],
         ingredientes=item['ingredientes'],
         preco=item['preco'],
-        opcional=item['opcional'],
+        opcionais=item.get('opcionais', []),
         subcategoria=item['subcategoria'],
         categoria=item['categoria']
     ))
@@ -29,4 +29,4 @@ with app.app_context():
         db.session.commit()
         print("Itens inseridos com sucesso!")
     except Exception as e:
-        print("Erro ao inserir:", e)
+        print(f'Erro ao inserir: {e}')

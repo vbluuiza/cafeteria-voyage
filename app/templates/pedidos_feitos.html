@@ -9,72 +9,84 @@
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar bg-body-tertiary py-0">
+<nav class="navbar bg-body-tertiary py-0">
     <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
         <button class="navbar-toggler border-0 px-0" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Voyage</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-                <a class="nav-link" href="/cardapio">Novo pedido</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/">Sair</a>
-            </li>
-            </ul>
-        </div>
+            aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Voyage</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cardapio">Novo pedido</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Sair</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <img src="{{ url_for('static', filename='img/M_img.png') }}" alt="">
     </div>
-    </nav>
+</nav>
 
-    <div class="mt-3 px-3">
+<div class="mt-3 px-3">
     <h6 class="mb-3">Pedidos feitos</h6>
 
     <div class="cards-area-template">
         {% for pedido in pedidos %}
-        <div class="card rounded-2 bg-light mb-2">
-            <div class="d-flex justify-content-between align-items-center px-2 py-2">
-            <i class="bi bi-clipboard fs-1"></i>
-            <div class="align-items-center">
-                <h5 class="card-title mb-1">Pedido #{{ pedido.id }}</h5>
-                <p class="text-muted mb-0">
-                Mesa {{ pedido.mesa.numero if pedido.mesa else 'Não atribuída' }}
-                </p>
+        <div class="card rounded-2 bg-light mb-3">
+            <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                <i class="bi bi-clipboard fs-1"></i>
+                <div>
+                    <h5 class="mb-1">Pedido #{{ pedido.id }}</h5>
+                    <p class="text-muted mb-0">Mesa {{ pedido.mesa.numero if pedido.mesa else 'Não atribuída' }}</p>
+                    <p class="mb-0"><strong>Status:</strong> {{ pedido.status }}</p>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-light" type="button" id="dropdownPedido{{ pedido.id }}"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        ⋮
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPedido{{ pedido.id }}">
+                        <li><a class="dropdown-item" href="/pedidos/editar_pedido/{{ pedido.id }}">Editar Pedido</a></li>
+                        <li><a class="dropdown-item text-danger" href="/pedidos/cancelar_pedido/{{ pedido.id }}">Cancelar Pedido</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="dropdown">
-                <button class="btn btn-light" type="button" id="dropdownPedido{{ pedido.id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                ⋮
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPedido{{ pedido.id }}">
-                <li><a class="dropdown-item" href="/pedidos/editar_pedido/{{ pedido.id }}">Editar Pedido</a></li>
-                <li><a class="dropdown-item text-danger" href="/pedidos/cancelar_pedido/{{ pedido.id }}">Cancelar Pedido</a></li>
+
+            {% if pedido.itens %}
+            <div class="px-3 pt-2">
+                <p class="fw-semibold mb-1">Itens:</p>
+                <ul class="mb-2">
+                    {% for item in pedido.itens %}
+                    <li>{{ item.quantidade }}x {{ item.cardapio.nome }} - R$ {{ '%.2f'|format(item.preco_unitario * item.quantidade) }}</li>
+                    {% endfor %}
                 </ul>
             </div>
-            </div>
-            <div class="d-flex justify-content-between border-top px-2 py-3">
-            <p class="mb-0">Total:</p>
-            <p class="mb-0 text-success">R$ {{ "%.2f"|format(pedido.total) }}</p>
+            {% endif %}
+
+            <div class="d-flex justify-content-between border-top px-3 py-2">
+                <p class="mb-0">Total:</p>
+                <p class="mb-0 text-success">R$ {{ '%.2f'|format(pedido.preco_total) }}</p>
             </div>
         </div>
         {% else %}
         <p class="text-muted">Nenhum pedido feito até o momento.</p>
         {% endfor %}
     </div>
-    </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-  crossorigin="anonymous"></script>
+    integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+    crossorigin="anonymous"></script>
 {% endblock %}

@@ -12,7 +12,8 @@
     <nav class="navbar bg-body-tertiary py-0">
         <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
             <div class="d-flex">
-                <a class="navbar-toggler border-0 px-0" type="button" href="/cardapio">
+                <!-- Usa url_for para voltar ao cardápio -->
+                <a class="navbar-toggler border-0 px-0" href="{{ url_for('pratos.ver_pratos') }}">
                     <span class="bi bi-arrow-left"></span>
                 </a>
                 <h4 class="mb-0 ps-4">{{ item.nome }}</h4>
@@ -22,21 +23,27 @@
     </nav>
 
     <div class="product-header">
-        <img id="detail-image" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" class="produto-image" alt="{{ item.nome }}">
+        <img
+            id="detail-image"
+            src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}"
+            class="produto-image"
+            alt="{{ item.nome }}"
+        >
     </div>
 
     <form method="POST" action="{{ url_for('pedido.adicionar_item') }}">
-        <input type="hidden" name="item_id" value="{{ item.id }}">
-        <input type="hidden" name="quantidade" value="1">
-        <input type="hidden" name="preco_unitario" value="{{ item.preco }}">
-        <input type="hidden" name="opcional" value="{{ item.opcional }}">
-        <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
-        <input type="hidden" name="observacao" id="observacao_input">
+            <input type="hidden" name="item_id"       value="{{ item.id }}">
+            <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
+            <input type="hidden" name="quantidade"    value="1">
+            <input type="hidden" name="preco_unitario" value="{{ item.preco }}">
+            <input type="hidden" name="observacao"    id="observacao_input">
 
         <div class="px-3">
             <h3 class="mt-2 fw-bold fs-2" id="detail-title">{{ item.nome }}</h3>
             <p class="mb-1 text-muted">{{ item.descricao }}</p>
-            <p class="fw-medium fs-5 text-success" id="detail-price">R$ {{ '%.2f'|format(item.preco) }}</p>
+            <p class="fw-medium fs-5 text-success" id="detail-price">
+                R$ {{ '%.2f'|format(item.preco) }}
+            </p>
         </div>
 
         <div class="d-flex align-items-center justify-content-between bg-light pt-2 px-3">
@@ -48,16 +55,27 @@
         </div>
 
         <div class="px-3" id="options-container">
-            {% if item.opcional %}
-                {% for opcao in item.opcional.replace(" e/ou ", ",").split(",") %}
+
+            {% if item.opcionais %}
+                {% for opcao in item.opcionais.replace(" e/ou ", ",").split(",") %}
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="opcional_escolhido" value="{{ opcao.strip() }}" id="opcao{{ loop.index }}" required>
-                        <label class="form-check-label" for="opcao{{ loop.index }}">{{ opcao.strip() }}</label>
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="opcional_escolhido"
+                            value="{{ opcao.strip() }}"
+                            id="opcao{{ loop.index }}"
+                            required
+                        >
+                        <label class="form-check-label" for="opcao{{ loop.index }}">
+                            {{ opcao.strip() }}
+                        </label>
                     </div>
                 {% endfor %}
             {% else %}
                 <p class="mt-3 text-muted">Sem opcionais disponíveis.</p>
             {% endif %}
+
         </div>
 
         <div class="px-3 observacao_section">
@@ -65,13 +83,20 @@
                 <h4 class="fw-bold">Alguma observação?</h4>
                 <p class="mb-0 mini-text">0/140</p>
             </div>
-            <textarea class="notes-textarea" placeholder="Ex: Café mais fraco..." maxlength="140" oninput="document.getElementById('observacao_input').value = this.value;"></textarea>
+            <textarea
+                class="notes-textarea"
+                placeholder="Ex: Café mais fraco..."
+                maxlength="140"
+                oninput="document.getElementById('observacao_input').value = this.value;"
+            ></textarea>
         </div>
 
         <div class="fixed-bottom d-flex px-3 pt-4 bg-light pb-3">
             <button type="submit" class="btn btn-primary w-50">Adicionar</button>
             <div class="w-50 d-flex align-items-center justify-content-center">
-                <h4 class="pb-0 fw-medium fs-5 detail-price-static">R$ {{ '%.2f'|format(item.preco) }}</h4>
+                <h4 class="pb-0 fw-medium fs-5 detail-price-static">
+                    R$ {{ '%.2f'|format(item.preco) }}
+                </h4>
             </div>
         </div>
     </form>
@@ -79,5 +104,8 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/item.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"
+    ></script>
 {% endblock %}

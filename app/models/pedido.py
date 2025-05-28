@@ -5,7 +5,6 @@ class Pedido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mesa_id = db.Column(db.Integer, db.ForeignKey('mesa.id'), nullable=True)
     preco_total = db.Column(db.Float, nullable=False)
-    observacao = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(100), nullable=False)
   
     mesa = db.relationship('Mesa', back_populates='pedidos')
