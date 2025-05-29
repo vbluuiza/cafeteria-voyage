@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from app.models.pedido import Pedido
+from app.models.mesa import Mesa
 from app.models.item_pedido import ItemPedido   
 from app.models.cardapio import Cardapio
 from app.models.mesa import Mesa
@@ -10,7 +11,8 @@ pedidos_bp = Blueprint('pedido', __name__, url_prefix='/pedidos')
 @pedidos_bp.route('/pedidos_feitos')
 def ver_pedidos_feitos():
     pedidos = Pedido.query.order_by(Pedido.id.desc()).all()
-    return render_template('pedidos_feitos.html', pedidos=pedidos)
+    mesas = Mesa.query.all()
+    return render_template('pedidos_feitos.html', pedidos=pedidos, mesas=mesas)
 
 @pedidos_bp.route('/adicionar_item', methods=["POST"])
 def adicionar_item():

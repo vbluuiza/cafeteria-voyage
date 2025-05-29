@@ -46,7 +46,7 @@
                 <i class="bi bi-clipboard fs-1"></i>
                 <div>
                     <h5 class="mb-1">Pedido #{{ pedido.id }}</h5>
-                    <p class="text-muted mb-0">Mesa {{ pedido.mesa.numero if pedido.mesa else 'Não atribuída' }}</p>
+                    <p class="text-muted mb-0">Mesa {{ pedido.mesa.id if pedido.mesa else 'Não atribuída' }}</p>
                     <p class="mb-0"><strong>Status:</strong> {{ pedido.status }}</p>
                 </div>
                 <div class="dropdown">
