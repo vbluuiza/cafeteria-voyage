@@ -32,11 +32,20 @@
                 <select class="form-select mt-1 w-auto" name="mesa_id" required style="font-weight: 500;">
                     <option value="" disabled selected>Selecione</option>
                     {% for mesa in mesas %}
-                        <option value="{{ mesa.id }}" {% if pedido.mesa_id == mesa.id %}selected{% endif %}>
-                            Mesa {{ mesa.id }} - {{ mesa.status }}
+                        {% set ns = namespace(mesa_ocupada=false) %}
+                        {% for p in mesa.pedidos %}
+                            {% if p.status != 'concluído' %}
+                                {% set ns.mesa_ocupada = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <option value="{{ mesa.id }}"
+                            {% if pedido.mesa_id == mesa.id %}selected{% endif %}
+                            {% if ns.mesa_ocupada and pedido.mesa_id != mesa.id %}disabled{% endif %}>
+                            Mesa {{ mesa.id }} - {% if ns.mesa_ocupada and pedido.mesa_id != mesa.id %}Ocupada{% else %}Disponível{% endif %}
                         </option>
                     {% endfor %}
-                </select>
+</select>
             </div>
 
             <hr>
