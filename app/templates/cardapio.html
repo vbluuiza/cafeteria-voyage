@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+    
 
 
 {% block title %}
@@ -60,11 +60,12 @@
 
 <div class="section-card-container">
         <div class="px-3 mt-3">
-
+            
             <h6 id="cafes_especiais" class="mb-3 mt-5">Cafés Especiais</h6>
             {% for item in cardapio if item.subcategoria == 'Cafés Especiais' %}
                 <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}" class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
                     <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
+                    
                     <div class="card-content">
                         <h5 class="card-title mb-2">{{ item.nome }}</h5>
                         <p class="card-text mb-2">{{ item.descricao }}</p>

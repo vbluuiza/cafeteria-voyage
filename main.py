@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from app.config.config_dev import ConfigDev
 import os
 
-
 db = SQLAlchemy()
 
 def criar_app():
