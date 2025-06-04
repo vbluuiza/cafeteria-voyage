@@ -4,18 +4,11 @@ pycache/
 *.pyo
 *.pyc
 
-Banco de dados local (SQLite),
-app/banco_de_dados/cafeteria.db
-
 
 Ambiente virtual,
 venv/
 .env
 *.env
-
-Dados temporários ou persistência antiga,
-app/banco_de_dados/dados_json/
-*.json
 
 Arquivos de log e dumps,
 *.log
@@ -27,5 +20,4 @@ VSCode,
 Arquivos do sistema (Windows/macOS),
 .DS_Store
 Thumbs.db
-instance/cafeteria.db
-instance/
+
