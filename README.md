@@ -2,6 +2,8 @@
 
 📌 **Versão atual:** 2.0.0
 
+🔗 **Acesse o sistema:** [cafeteria-voyage.onrender.com](https://cafeteria-voyage.onrender.com/)  
+
 🏷️ **Versão anterior disponível:** [v1.0.0](https://github.com/seu-usuario/projeto-cafeteria/releases/tag/v1.0.0)
 
 🗓️ **Última atualização:** Junho de 2025
@@ -91,8 +93,13 @@ README.md               # Documentação do projeto
 - SQLite
     
     (v1.0.0: JSON, threading)
-    
+  
+---
+## ⚠️ Observação sobre o Banco de Dados
 
+Esse projeto foi desenvolvido como parte de um trabalho acadêmico e, por isso, utilizamos o SQLite como banco de dados — uma solução mais simples e prática para projetos locais e de pequeno porte.
+
+- Atualmente, o sistema está hospedado no Render, e vale lembrar que plataformas como essa não mantêm o banco SQLite após reinicializações do servidor. Por isso, os dados cadastrados no site são temporários e podem ser apagados após algum tempo.
 ---
 
 ## 📂 Como Executar
@@ -122,9 +129,6 @@ Execute o sistema:
 ```bash
 python run.py
 ```
-
-Acesse via navegador:
-[http://127.0.0.1:5000](http://127.0.0.1:5000/)
 
 ---
 
