@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from app.config.config_dev import ConfigDev
 import os
+from unidecode import unidecode
 
 db = SQLAlchemy()
 
@@ -18,6 +19,10 @@ def criar_app():
     app.config['SECRET_KEY'] = 'testando'
     
     db.init_app(app)
+    
+    @app.template_filter('normalize_nome')
+    def normalize_nome(nome):
+        return unidecode(nome.lower().replace(" ", "_").replace("ã", "a").replace("ç", "c"))
     
     from app.models import mesa, cardapio, item_pedido, pedido 
     from app.views import registrar_blueprints

@@ -1,6 +1,4 @@
 {% extends 'layout.html' %}
-    
-
 
 {% block title %}
     Cafeteria Voyage
@@ -11,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-{% set pid = pedido_id or "" %}
+    {% set pid = pedido_id or "" %}
     <nav class="navbar bg-body-tertiary py-0 fixed-top">
         <div class="container-fluid px-3 border-bottom d-flex align-items-center py-2">
             <button class="navbar-toggler border-0 px-0" type="button" data-bs-toggle="offcanvas"
@@ -39,97 +37,41 @@
         </div>
         <div class="nav-scroller d-flex mt-2">
             <ul class="nav flex-nowrap custom-nav">
-                <li>
-                    <a class="nav-link py-1 active" id="radioItem1" href="#cafes_especiais">CAFÉS ESPECIAIS</a>
-                </li>
-                <li>
-                    <a class="nav-link py-1" id="radioItem2" href="#cafes">CAFÉS</a>
-                </li>
-                <li>
-                    <a class="nav-link py-1" id="radioItem3" href="#outras_bebidas">OUTRAS BEBIDAS</a>
-                </li>
-                <li>
-                    <a class="nav-link py-1" id="radioItem4" href="#sanduiches">SANDUICHES</a>
-                </li>
-                <li>
-                    <a class="nav-link py-1" id="radioItem5" href="#sobremesas">SOBREMESAS</a>
-                </li>
+                <li><a class="nav-link py-1 active" href="#cafes_especiais">CAFÉS ESPECIAIS</a></li>
+                <li><a class="nav-link py-1" href="#cafes">CAFÉS</a></li>
+                <li><a class="nav-link py-1" href="#outras_bebidas">OUTRAS BEBIDAS</a></li>
+                <li><a class="nav-link py-1" href="#sanduiches">SANDUÍCHES</a></li>
+                <li><a class="nav-link py-1" href="#sobremesas">SOBREMESAS</a></li>
             </ul>
         </div>
     </nav>
 
-<div class="section-card-container">
+    <div class="section-card-container">
         <div class="px-3 mt-3">
+            {% for sub in ['Cafés Especiais', 'Cafés', 'Outras Bebidas', 'Sanduíches', 'Sobremesas'] %}
+            <h6 id="{{ sub|lower|replace(' ', '_') }}" class="mb-3 mt-5">{{ sub }}</h6>
             
-            <h6 id="cafes_especiais" class="mb-3 mt-5">Cafés Especiais</h6>
-            {% for item in cardapio if item.subcategoria == 'Cafés Especiais' %}
-                <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}" class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
-                    
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">{{ item.nome }}</h5>
-                        <p class="card-text mb-2">{{ item.descricao }}</p>
-                        <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
-                    </div>
-                </a>
-            {% else %}
-                <p>Nenhum item encontrado nessa subcategoria.</p>
+            {% set ns = namespace(encontrados=false)%}
+            {% for item in cardapio %}
+                {% if item.subcategoria|trim == sub %}
+                    {% set ns.encontrados = true %}
+                    <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}"
+                    class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
+                        <img class="card-img h-100 rounded-2"
+                            src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|normalize_nome ~ '.jpg') }}"
+                            alt="{{ item.nome }}">
+                        <div class="card-content">
+                            <h5 class="card-title mb-2">{{ item.nome }}</h5>
+                            <p class="card-text mb-2">{{ item.descricao }}</p>
+                            <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
+                        </div>
+                    </a>
+                {% endif %}
             {% endfor %}
 
-            <h6 id="cafes" class="mb-3 mt-5">Cafés</h6>
-            {% for item in cardapio if item.subcategoria == 'Cafés' %}
-                <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}" class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">{{ item.nome }}</h5>
-                        <p class="card-text mb-2">{{ item.descricao }}</p>
-                        <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
-                    </div>
-                </a>
-            {% else %}
-                <p>Nenhum item encontrado nessa subcategoria.</p>
-            {% endfor %}
-
-            <h6 id="outras_bebidas" class="mb-3 mt-5">Outras Bebidas</h6>
-            {% for item in cardapio if item.subcategoria == 'Outras Bebidas' %}
-                <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}" class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">{{ item.nome }}</h5>
-                        <p class="card-text mb-2">{{ item.descricao }}</p>
-                        <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
-                    </div>
-                </a>
-            {% else %}
-                <p>Nenhum item encontrado nessa subcategoria.</p>
-            {% endfor %}
-
-            <h6 id="sanduiches" class="mb-3 mt-5">Sanduíches</h6>
-            {% for item in cardapio if item.subcategoria == 'Sanduíches' %}
-                <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}" class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">{{ item.nome }}</h5>
-                        <p class="card-text mb-2">{{ item.descricao }}</p>
-                        <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
-                    </div>
-                </a>
-            {% else %}
-                <p>Nenhum item encontrado nessa subcategoria.</p>
-            {% endfor %}
-
-            <h6 id="sobremesas" class="mb-3 mt-5">Sobremesas</h6>
-            {% for item in cardapio if item.subcategoria == 'Sobremesas' %}
-                <a href="{{ url_for('pratos.ver_item_pedido', id=item.id, pedido_id=pid) }}" class="custom-card rounded-2 bg-light mb-2 text-decoration-none text-dark">
-                    <img class="card-img h-100 rounded-2" src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}" alt="">
-                    <div class="card-content">
-                        <h5 class="card-title mb-2">{{ item.nome }}</h5>
-                        <p class="card-text mb-2">{{ item.descricao }}</p>
-                        <p class="card-price mb-0">R${{ "%.2f"|format(item.preco) }}</p>
-                    </div>
-                </a>
-            {% else %}
-                <p>Nenhum item encontrado nessa subcategoria.</p>
+            {% if not ns.encontrados %}
+                    <p>Nenhum item encontrado nessa subcategoria.</p>
+                {% endif %}
             {% endfor %}
 
         </div>
@@ -137,8 +79,8 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/cardapio.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/cardapio.js') }}"></script>
 {% endblock %}
-
-                    

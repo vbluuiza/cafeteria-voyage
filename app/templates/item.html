@@ -24,18 +24,17 @@
     <div class="product-header">
         <img
             id="detail-image"
-            src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|lower|replace(' ', '_') ~ '.jpg') }}"
+            src="{{ url_for('static', filename='img/itens_cardapio/' ~ item.nome|normalize_nome ~ '.jpg') }}"
             class="produto-image"
-            alt="{{ item.nome }}"
-        >
+            alt="{{ item.nome }}">
     </div>
 
     <form method="POST" action="{{ url_for('pedido.adicionar_item') }}">
-            <input type="hidden" name="item_id"       value="{{ item.id }}">
-            <input type="hidden" name="pedido_id" value="{{ pedido.id }}">
-            <input type="hidden" name="quantidade"    value="1">
-            <input type="hidden" name="preco_unitario" value="{{ item.preco }}">
-            <input type="hidden" name="observacao"    id="observacao_input">
+        <input type="hidden" name="item_id"       value="{{ item.id }}">
+        <input type="hidden" name="pedido_id"     value="{{ pedido.id }}">
+        <input type="hidden" name="quantidade"    value="1">
+        <input type="hidden" name="preco_unitario" value="{{ item.preco }}">
+        <input type="hidden" name="observacao"    id="observacao_input">
 
         <div class="px-3">
             <h3 class="mt-2 fw-bold fs-2" id="detail-title">{{ item.nome }}</h3>
@@ -54,7 +53,6 @@
         </div>
 
         <div class="px-3" id="options-container">
-
             {% if item.opcionais %}
                 {% for opcao in item.opcionais.replace(" e/ou ", ",").split(",") %}
                     <div class="form-check">
@@ -74,7 +72,6 @@
             {% else %}
                 <p class="mt-3 text-muted">Sem opcionais disponíveis.</p>
             {% endif %}
-
         </div>
 
         <div class="px-3 observacao_section">
